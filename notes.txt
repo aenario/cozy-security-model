@@ -1,0 +1,22 @@
+A. WITHOUT "allow-same-origin" 
+
+    XHR is totally useless
+    Tried CORS : fail
+    Option A1 : Force developpers to use only JSONP             ---> GAVE UP
+    
+    Only communication is through window.postMessage 
+    Option A2 : spoof XMLHttpRequest through window.postMessage ---> GAVE UP
+
+
+B. WITH "allow-same-origin"
+
+    TODO test cookie options
+    TO CONSIDER localStorage/webworker/other-SOP-related unsafe
+
+
+Actual state : full safe except for transmission of key.js
+    CURRENT BEST OPTION - don't store in cookie, force use to input password everytime he enters, give key only against password
+
+
+
+USEFULL : node modules are singleton = can be only 1 middleware for the developper
