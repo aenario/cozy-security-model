@@ -1,15 +1,24 @@
-fakeHome = require './proxy'
-fakeHome.listen 8080
+apps = 
+    bob:8081
+    alice:8082
+    eve:8083
+
+domains = 
+    proxy: 'fakeuser.cozycloud.cc'
+    apps : 'apps.fakeuser.cozycloud.cc'
+
+proxy = require './proxy'
+proxy.apps = apps
+proxy.domains = domains
+proxy.listen 80
 console.log 'fakeHome started'
 
-testApp = require './bob'
-testApp.listen 8081
-console.log 'bob started'
+for app , port of apps
+    testApp = require "./#{app}"
+    testApp.listen port
+    console.log "#{app} started"
 
-testApp = require './alice'
-testApp.listen 8082
-console.log 'alice started'
-
-testApp = require './eve'
-testApp.listen 8083
-console.log 'eve started'
+console.log 'please add : '
+console.log ' ÏP '+domains.proxy
+console.log ' ÏP '+domains.apps
+console.log ' to your "hosts" file'

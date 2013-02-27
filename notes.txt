@@ -10,6 +10,8 @@ A. WITHOUT "allow-same-origin"
 
 B. WITH "allow-same-origin"
 
+    also break top-navigation
+
     TODO test cookie options
     TO CONSIDER localStorage/webworker/other-SOP-related unsafe
 
@@ -20,3 +22,22 @@ Actual state : full safe except for transmission of key.js
 
 
 USEFULL : node modules are singleton = can be only 1 middleware for the developper
+
+
+
+
+===============================
+
+
+Apps dans un domaine apps.user.cozycould.com
+home sur le domaine user.cozycloud.com
+
+cookies sur le domaine user.cozycloud.com
+
+ouverture d'une app (coté client) =
+génération d'une clé pour l'app à partir de la clé home
+iframe (sandbox DOM) vers "apps.user.cc.com?k=key"
+
+impossible de récupérer la clé home --> impossible de forger une clé app
+
+on check la clé à chaque request

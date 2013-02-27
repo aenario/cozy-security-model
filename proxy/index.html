@@ -4,10 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Security test</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="/key.js"></script>
+        <script type="text/javascript" src="/domains.js"></script>
         <script type="text/javascript">
             function makeKeyForApp(appName){
                 return window.secretKey + appName; // should be hashed
@@ -15,18 +13,35 @@
 
             function makeIframeForApp(appName){
                 var key = makeKeyForApp(appName);
-                $('<iframe sandbox="allow-scripts allow-same-origin" src="/apps/'+appName+'/?k='+key+'">')
+                $('<iframe sandbox="allow-scripts allow-same-origin" src="http://'+window.domains.apps+'/apps/'+appName+'/?k='+key+'">')
                     .appendTo('body');
             }
+
+            function launch(pass){
+                url = 'checkPass';
+                if(pass) url += '?password='+$('#password').val();
+                $.ajax(url)
+                    .done(function(data){
+                        if(data.error){
+                          alert(data.error);  
+                        }else{
+                            window.secretKey = data.key;
+                            makeIframeForApp('bob');
+                            makeIframeForApp('alice');
+                            makeIframeForApp('eve');
+                        }
+                    })
+            }
+
         </script>
     </head>
 
     <body>
         <h1>Home</h1>
-        <script type="text/javascript">
-            makeIframeForApp('bob')
-            makeIframeForApp('alice')
-            makeIframeForApp('eve')
-        </script>
+
+        <input type="text" id="password" value="password" />
+        <input type="button" onclick="launch(true)" value="use this password" />
+        <input type="button" onclick="launch(false)" value="use cookie" />
+
     </body>
 </html>

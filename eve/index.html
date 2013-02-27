@@ -7,27 +7,56 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="/domains.js"></script>
+        <script type="text/javascript">
+            function getKeyFromParent(){
+                alert(window.parent.secretKey);
+            }
+            function testCallApi(){
+                $.ajax({
+                    url:'../bob/api'+window.location.search,
+                    dataType:'json'
+                }).done(function(data){
+                    alert(data);
+                });
+            }
+            function testGetCookie(){
+                alert(document.cookie);
+            }
+            function askServerForKey(domain){
+                $.ajax(
+                    'http://'+domain+'/checkPass'
+                ).done(function(data){
+                    alert(JSON.stringify(data));
+                });
+            }
+        </script>
+        </script>
     </head>
 
     <body>
 
         <h1>Eve</h1>
 
-        <p>Calling bob API : <span id="test-ajax"></span></p>
-        <script type="text/javascript">
-            $.ajax({
-                url:'../bob/api'+window.location.search,
-                dataType:'json'
-            }).done(function(data){
-                console.log(data);
-                $('#test-ajax').html(data.data);        
-            });
-        </script>
+        <p>FAIL(wrong client key) Calling bob API :
+            <input type="button" onclick="testCallApi()" value="Test">
+        </p>
 
-        <p>Reading cookies from home : </p>
-        <script type="text/javascript">
-            $('#test-cookie').html(document.cookie)
-        </script>
+        <p>FAIL(sandbox) - Get secret key from parent window : 
+            <input type="button" onclick="getKeyFromParent()" value="Test" />
+        </p>
+
+        <p>FAIL(httpOnly) - Get key from cookie : 
+            <input type="button" onclick="testGetCookie()" value="Test" />
+        </p>
+
+        <p>Get key from server (cookie will be sent) : 
+            <input type="button" onclick="askServerForKey(window.domains.apps)" value="Test" />
+        </p>
+
+        <p>Get key from server (cookie will be sent) : 
+            <input type="button" onclick="askServerForKey(window.domains.proxy)" value="Test" />
+        </p>
 
     </body>
 </html>
