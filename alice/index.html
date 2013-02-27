@@ -7,6 +7,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="/cozy-token-management.js"></script>
     </head>
 
     <body>
@@ -15,11 +16,7 @@
 
         <p>Calling bob API : <span id="test-ajax"></span></p>
         <script type="text/javascript">
-            $.ajax({
-                url:'../bob/api'+window.location.search,
-                dataType:'json'
-            }).done(function(data){
-                console.log(data);
+            $.ajax('../bob/api').done(function(data){
                 $('#test-ajax').html(data.data);        
             });
         </script>

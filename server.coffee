@@ -5,7 +5,7 @@ apps =
 
 domains = 
     proxy: 'fakeuser.cozycloud.cc'
-    apps : 'apps.fakeuser.cozycloud.cc'
+    apps : 'fakeuser-apps.cozycloud.cc'
 
 proxy = require './proxy'
 proxy.apps = apps

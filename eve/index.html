@@ -24,6 +24,7 @@
                 alert(document.cookie);
             }
             function askServerForKey(domain){
+                document.domain = domain
                 $.ajax(
                     'http://'+domain+'/checkPass'
                 ).done(function(data){
@@ -46,7 +47,7 @@
             <input type="button" onclick="getKeyFromParent()" value="Test" />
         </p>
 
-        <p>FAIL(httpOnly) - Get key from cookie : 
+        <p>FAIL(httpOnly + cookie on other domain) - Get key from cookie : 
             <input type="button" onclick="testGetCookie()" value="Test" />
         </p>
 
