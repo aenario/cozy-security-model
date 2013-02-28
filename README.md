@@ -1,8 +1,9 @@
 cozy-security-model
 ===================
 
-eve is a bad app
-bob is a good app with access to sensitive data
+- eve is a bad app
+- bob is a good app with access to sensitive data
+- alice is a good app which should rightfully access bob's sensitive data
 
 Step 1a. opening home
 - the User requests http://user.cozy.cc/
