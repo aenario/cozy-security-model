@@ -27,7 +27,7 @@ Step 3. app bob make a request.
 - requests are forwarded to the requested app server
 - another app alice can request bob API (if proxy server allows it)
 
-Potential fails and security : ()
+Potential fails and security :
 - eve cannot access key through the dom (window.parent) (sandbox + not same origin)
 - eve cannot request /home to get the [home client key] (not same origin)
 - eve cannot read the home cookies (not same origin)
